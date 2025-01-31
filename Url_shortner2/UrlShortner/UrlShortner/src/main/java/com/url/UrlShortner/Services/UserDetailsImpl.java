@@ -1,8 +1,9 @@
 package com.url.UrlShortner.Services;
 
-
 import com.url.UrlShortner.Models.User;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,34 +12,38 @@ import java.io.Serial;
 import java.util.Collection;
 import java.util.Collections;
 
-
 @Data
+@NoArgsConstructor
 public class UserDetailsImpl implements UserDetails {
+
+
     @Serial
     private static final long serialVersionUID = 1L ;
 
-    private Long id;
+    @Getter
+    private Long userId;
     private String username;
+    @Getter
     private String email;
     private String password;
+    private Collection<? extends GrantedAuthority> authorities;
+    @Getter
+    private String role;
 
-    public UserDetailsImpl(Long id, String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {
-        this.id = id;
+    public UserDetailsImpl(Long userId, String username, String email, String password, String role ,Collection<? extends GrantedAuthority> authorities) {
+        this.userId = userId;
         this.username = username;
         this.email = email;
         this.password = password;
         this.authorities = authorities;
+        this.role = role;
     }
 
-    public static UserDetailsImpl build(User user)
-    {
+    public static UserDetailsImpl build(User user) {
         GrantedAuthority authority = new SimpleGrantedAuthority(user.getRole());
 
-        return new UserDetailsImpl(user.getUserId(), user.getUsername(), user.getEmail(), user.getPassword(), Collections.singletonList(authority));
+        return new UserDetailsImpl(user.getUserId(), user.getUsername(), user.getEmail(), user.getPassword(), user.getRole(),Collections.singletonList(authority));
     }
-
-    private Collection<? extends GrantedAuthority> authorities;
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -54,4 +59,20 @@ public class UserDetailsImpl implements UserDetails {
     public String getUsername() {
         return username;
     }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
 }
