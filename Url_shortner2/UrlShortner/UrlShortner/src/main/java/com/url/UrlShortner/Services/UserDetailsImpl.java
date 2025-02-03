@@ -20,14 +20,11 @@ public class UserDetailsImpl implements UserDetails {
     @Serial
     private static final long serialVersionUID = 1L ;
 
-    @Getter
     private Long userId;
     private String username;
-    @Getter
     private String email;
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
-    @Getter
     private String role;
 
     public UserDetailsImpl(Long userId, String username, String email, String password, String role ,Collection<? extends GrantedAuthority> authorities) {
@@ -58,21 +55,6 @@ public class UserDetailsImpl implements UserDetails {
     @Override
     public String getUsername() {
         return username;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
     }
 
 }

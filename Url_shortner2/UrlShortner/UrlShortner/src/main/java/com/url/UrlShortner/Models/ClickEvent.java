@@ -18,7 +18,7 @@ public class ClickEvent {
     @CreationTimestamp
     private LocalDate ClickDate;
 
-    @JsonIgnore
+
     @ManyToOne
     @JoinColumn(name = "MappingId")
     private UrlMapping urlMapping;

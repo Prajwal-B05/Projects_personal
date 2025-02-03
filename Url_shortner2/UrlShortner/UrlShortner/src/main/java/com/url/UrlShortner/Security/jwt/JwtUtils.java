@@ -60,11 +60,7 @@ public class JwtUtils {
             return true;
         } catch (JwtException e) {
             throw new RuntimeException(e);
-        } catch (IllegalArgumentException e) {
-            throw new RuntimeException(e);
         }
-        catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+
     }
 }

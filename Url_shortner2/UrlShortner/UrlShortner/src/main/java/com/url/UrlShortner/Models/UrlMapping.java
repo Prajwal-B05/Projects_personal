@@ -26,7 +26,7 @@ public class UrlMapping {
     @JoinColumn(name = "UserId")
     private User user;
 
-    @JsonIgnore
+
     @OneToMany(mappedBy = "urlMapping")
     private List<ClickEvent> ClickEvents;
 
